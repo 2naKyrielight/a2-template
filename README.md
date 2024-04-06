@@ -4,6 +4,7 @@ You must read fully and carefully the assignment specification and instructions 
 
 * **Course:** COMP90054 AI Planning for Autonomy @ Semester 1, 2024
 * **Instructor:** Dr. Nir Lipovetzky, Dr.Joe West and Dr. Sarita Rosenstock
+* **Code Deadline:** Thursday 11th April, 2024 @ 18:00 (Mid of Week 6)
 * **Deadline:** Monday 15th April, 2024 @ 18:00 (start of Week 7)
 * **Course Weight:** 10%
 * **Assignment type:**: Individual
@@ -16,12 +17,13 @@ The **aim of this project** is to improve your understanding of PDDL modelling.
 ## (Un)grading
 Assignment 2 will use ungrading the same way that assignment 1 did. We have given some additional detail to clarify the self evaluation and to help people learn how to "deal with" ungrading.
 
-Based on assignment 1 feedback, a majority of people preferred self-grading (76.1%), with about 23.9% prefering traditional grading. The main reasons people disliked ungrading this last 2 semesters were:
+Based on assignment 1 feedback, a majority of people preferred self-grading (85.5%), with about 14.5% prefering traditional grading. The main reasons people disliked ungrading this last 2 semesters were:
 
 1. Quite a few people  saying that they found it great but they wanted to just be able to tick boxes to get marks so they could "know" what their mark would be. We agree this is good if your only aim is to get marks rather than to learn, which is precisely why we are using ungrading: to encourage learning. Further, this is much closer to reality -- there are very few tech jobs where peopel get structured rubrics to assess their contribution.
-2. There were a number of comments that ungrading felt subjective, compared to rubric-based marking. We can assure you that, as a group of people who have graded thousands of assessments, rubric-based marking is very far from objective. I encourage you to read 'Noise, A Flaw in Human Judgement' by Sunstein, Kahneman, and Sibony. Further, rubric-based grading is not a good measure of how much people have learnt.
-3. It seems many people felt that they have to write a lot for the self evaluation. A self assessment can be short AND good. There is no need to write pages of text -- just justify why you did a good job and learnt stuff. In Assignment 2, we give a bit more direction and set expecations to avoid people spending too much time on the self evaluation
-4. A number of people felt that the self evaluation was unnecessary when there are test cases. However, several people who said this also commented that it did make them reflect on their own learning, so this is good! In addition, many people who liked ungrading commented that it reduced the stress of trying to get every test case right.
+<!-- 2. There were a number of comments that ungrading felt subjective, compared to rubric-based marking. We can assure you that, as a group of people who have graded thousands of assessments, rubric-based marking is very far from objective. I encourage you to read 'Noise, A Flaw in Human Judgement' by Sunstein, Kahneman, and Sibony. Further, rubric-based grading is not a good measure of how much people have learnt. -->
+2. It seems many people felt that they have to write a lot for the self evaluation. A self assessment can be short AND good. There is no need to write pages of text -- just justify why you did a good job and learnt stuff. In Assignment 2, we give a bit more direction and set expecations to avoid people spending too much time on the self evaluation
+3. A number of people felt that the self evaluation was unnecessary when there are test cases. However, several people who said this also commented that it did make them reflect on their own learning, so this is good! In addition, many people who liked ungrading commented that it reduced the stress of trying to get every test case right.
+4. A number of people felt that they should get partial marks for the part 3. (This is why we use self-grading, you can use self evaluation to give yourselves the marks you think you deserve and justified the reason).
 
 There were many reasons people liked ungrading, chiefly:
 
@@ -100,7 +102,7 @@ The criteria for code marking will be:
 - 1 point for encoding the 3 problems correctly and generate the correct solutions as per the specification of the problem
 - 4 points for encoding problem 4 correctly as per specification 
    - 1 point for handling more than one hero, all mentioned objects and object-passing functionality
-   - 1 point for making it turn based and additional actions,
+   - 1 point for making it turn based and additional actions
    - 1 points for making the turns being unfixed
    - 1 point for creating a problem with a valid solution for all heroes.
 
@@ -115,7 +117,7 @@ For problems 1-3 (together) and problem 4, write a brief self evaluation that in
     * 1 marks for problem files and plan correctness (Problems 1-3)
     - Problem 4:
         * 1 point for handling more than one hero, all mentioned objects and object-passing functionality
-        * point for making it turn based and additional actions,
+        * 1 point for making it turn based and additional actions
         * 1 points for making the turns being unfixed
         * 1 point for creating a problem with a valid solution for all heroes.
 
@@ -156,7 +158,16 @@ Don't forget there are a host of other resources to help with model building and
 
 ## Submission Instructions
 
-Your submission has four parts: a submission registration form; domain and problem files submitted through GitHub tag (as in assignment 1); a PDF file submission on Canvas--> Assignments --> Assignment 2; a submission certification form.
+Your submission has four parts:
+1. a submission registration form with **Deadline:** Thursday 11th April, 2024 @ 18:00 (Mid of Week 6);
+2. domain and problem files submitted through GitHub tag (as in assignment 1) with **Deadline:** Thursday 11th April, 2024 @ 18:00 (Mid of Week 6);
+> **IMPORTANT**
+> Please be aware that the sample solution will be provided after the code deadline. You should use it to help evaluation your assignment.
+3. a PDF file submission on Canvas--> Assignments --> Assignment 2 with **Deadline:** Monday 15th April, 2024 @ 18:00 (start of Week 7)
+4. a submission certification form with **Deadline:** Monday 15th April, 2024 @ 18:00 (start of Week 7)
+
+
+
 
 
 ### A2 registration form
@@ -165,6 +176,10 @@ Make sure you fill in the [A2 registration form](https://forms.gle/J6A85hPdx2gTV
 
 > **Warning**
 > Please be aware that you will **NOT** be able to get any feedback from online server until you fill in this form. 
+
+Similarly as Assignment 1, you can use tag `test-submission` or `submission` to test. The **result** from the online server contains two parts: **part 1-3**, and **part 4**.
+1. **Part 1-3** have 3 marks in total. The server looks for exact matches on your solution with the sample solution, as the structures and hints of the domain and problem files are provided (there should be only one solution that both make sense semantically and syntactically). 
+2. **Part 4** will return a plan if your domain and problem files are valid. It does not mean your solution meets all requirements, and you still need to justify it in your self evaluation.
 
 
 
@@ -178,6 +193,7 @@ Make sure you fill in the [A2 registration form](https://forms.gle/J6A85hPdx2gTV
     * Note that a tag is **NOT** a branch, so do not just create a branch called "submission" as that will not amount to tagging.
     * Note that a tag is **NOT** a commit message, so please make sure you can find it in your repo page -> tags
     * It is **case-sensitive**.
+    * The staff will use your last record with tag `submission` to mark your assignment along with your self evaluation.
 
 
 
