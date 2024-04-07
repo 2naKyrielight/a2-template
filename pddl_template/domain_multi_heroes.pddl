@@ -139,6 +139,7 @@
             (at-hero ?to ?hero)
             (is-destroyed ?from)
     )
+    )
     
     ;Hero picks a sword if he's in the same location
     (:action pick-sword
@@ -246,4 +247,4 @@
                 )
     )
     
-)
+    )
