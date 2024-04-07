@@ -188,8 +188,8 @@
             (not (turn-complete ?hero))
                       )
         :effect (and
-            (not (hold-sword ?s))
-            (arm-free)
+            (not (hold-sword ?s ?hero))
+            (arm-free ?hero)
             (turn-complete ?hero)
                 )
     )
@@ -205,8 +205,8 @@
             (not (turn-complete ?hero))  
                       )
         :effect (and
-            (not (hold-key ?k))
-            (arm-free)
+            (not (hold-key ?k ?hero))
+            (arm-free ?hero)
             (turn-complete ?hero)
                 )
     )
@@ -221,7 +221,6 @@
             (not (turn-complete ?hero))
                       )
         :effect (and
-            (trap-disarmed ?loc)
             (not (has-trap ?loc))     
             (turn-complete ?hero)
                 )
@@ -263,7 +262,7 @@
                 )
     )
     (:action do-Nothing
-        :parameters (?hero- heroes)
+        :parameters (?hero - heroes)
         :precondition (and
             (not (turn-complete ?hero))
                       )
