@@ -22,7 +22,7 @@
         ;Indicates if a cell location has a trap
         (has-trap ?loc - cells)
         
-        ;Indicates if a chell or sword has been destroyed
+        ;Indicates if a cell or sword has been destroyed
         (is-destroyed ?obj)
         
         ;connects cells
