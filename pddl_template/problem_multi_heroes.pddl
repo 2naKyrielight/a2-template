@@ -1,5 +1,3 @@
-;It's recommended to install the misc-pddl-generators plugin 
-;and then use Network generator to create the graph
 (define (problem p3-dangeon)
   (:domain Dangeon)
   (:objects
@@ -139,7 +137,7 @@
   )
   (:goal (and
         (at-hero cell11 h1)
-        (at-hero cell11 h2)
+        (at-hero cell15 h2)
             ;Hero's Goal Location
             
   ))
