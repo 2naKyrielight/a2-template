@@ -79,11 +79,13 @@
             (not (has-trap ?to))
             (not (has-monster ?to))
             (not (is-locked ?to))
+            (not (turn-complete ?hero))
         )
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
             (is-destroyed ?from)
+            (turn-complete ?hero)
                 )
     )
     
@@ -96,12 +98,14 @@
             (arm-free ?hero)
             (not (has-trap ?from))
             (not (is-destroyed ?to))
-            (has-trap ?to)       
+            (has-trap ?to)
+            (not (turn-complete ?hero))       
         )
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
             (is-destroyed ?from)
+            (turn-complete ?hero)
                 )
     )
 
@@ -115,6 +119,7 @@
             (not (has-trap ?from))
             (not (is-destroyed ?to))
             (has-monster ?to)
+            (not (turn-complete ?hero))
         )
         :effect (and 
             (not (at-hero ?from ?hero))
@@ -133,12 +138,14 @@
             (not (has-trap ?from))
             (not (is-destroyed ?to))
             (is-locked ?to)
+            (not (turn-complete ?hero))
         )
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
             (is-destroyed ?from)
-    )
+            (turn-complete ?hero)
+      )
     )
     
     ;Hero picks a sword if he's in the same location
@@ -148,11 +155,13 @@
             (at-hero ?loc ?hero)
             (at-sword ?s ?loc)
             (arm-free ?hero)
+            (not (turn-complete ?hero))
                       )
         :effect (and
             (not (at-sword ?s ?loc))
             (not (arm-free ?hero))
             (hold-sword ?s ?hero)
+            (turn-complete ?hero)
                 )
     )
 
@@ -163,11 +172,13 @@
             (at-hero ?loc ?hero)
             (at-key ?k ?loc)
             (arm-free ?hero)
+            (not (turn-complete ?hero))
                       )
         :effect (and
             (not (at-key ?k ?loc))
             (not (arm-free ?hero))
             (hold-key ?k ?hero)
+            (turn-complete ?hero)
                 )
     )
     
@@ -179,10 +190,12 @@
             (at-hero ?loc ?hero)
             (not (has-trap ?loc))
             (not (has-monster ?loc))      
+            (not (turn-complete ?hero))
                       )
         :effect (and
             (not (hold-sword ?s))
             (arm-free)
+            (turn-complete ?hero)
                 )
     )
 
@@ -193,11 +206,13 @@
             (hold-key ?k ?hero)
             (at-hero ?loc ?hero)
             (not (has-trap ?loc))
-            (not (has-monster ?loc))      
+            (not (has-monster ?loc))    
+            (not (turn-complete ?hero))  
                       )
         :effect (and
             (not (hold-key ?k))
             (arm-free)
+            (turn-complete ?hero)
                 )
     )
     
@@ -207,11 +222,13 @@
         :precondition (and 
             (arm-free ?hero)
             (at-hero ?loc ?hero)
-            (has-trap ?loc) 
+            (has-trap ?loc)
+            (not (turn-complete ?hero))
                       )
         :effect (and
             (trap-disarmed ?loc)
             (not (has-trap ?loc))     
+            (turn-complete ?hero)
                 )
     )
 
@@ -223,11 +240,13 @@
             (at-loc ?loc ?h2)
             (arm-free ?h2)
             (hold-sword ?s ?h1)
+            (not (turn-complete ?hero))
                       )
         :effect (and
             (hold-sword ?s ?h2)
             (not (arm-free ?h2))
             (arm-free ?h1)
+            (turn-complete ?hero)
                 )
     )
 
@@ -239,11 +258,22 @@
             (at-loc ?loc ?h2)
             (arm-free ?h2)
             (hold-key ?k ?h1)
+            (not (turn-complete ?hero))
                       )
         :effect (and
             (hold-key ?k ?h2)
             (not (arm-free ?h2))
             (arm-free ?h1)
+            (turn-complete ?hero)
+                )
+    )
+    (:action do-Nothing
+        :parameters (?hero- heroes)
+        :precondition (and
+            (not (turn-complete ?hero))
+                      )
+        :effect (and
+            (turn-complete ?hero)
                 )
     )
     
