@@ -137,7 +137,6 @@
             (has-trap ?loc) 
                       )
         :effect (and
-            (trap-disarmed ?loc)
             (not (has-trap ?loc))     
                 )
     )

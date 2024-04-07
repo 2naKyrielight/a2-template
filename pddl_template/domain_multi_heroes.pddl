@@ -11,7 +11,7 @@
 
     (:predicates
         ;Hero's cell location
-        (at-hero ?loc - cells ?h -heroes)
+        (at-hero ?loc - cells ?h - heroes)
         
         ;Sword cell location
         (at-sword ?s - swords ?loc - cells)
@@ -35,7 +35,7 @@
         (connected ?from ?to - cells)
         
         ;Hero's hand is free
-        (arm-free ?h -heroes)
+        (arm-free ?h - heroes)
         
         ;Hero's holding a sword
         (hold-sword ?s - swords ?h - heroes)
