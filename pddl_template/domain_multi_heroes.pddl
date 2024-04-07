@@ -83,7 +83,7 @@
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (when (forall (?h - heroes) (not (at-hero ?from ?h) ))(is-destroyed ?from))
+            (is-destroyed ?from)
                 )
     )
     
@@ -101,7 +101,7 @@
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (when (forall (?h - heroes) (not (at-hero ?from ?h) ))(is-destroyed ?from))      
+            (is-destroyed ?from)
                 )
     )
 
@@ -119,7 +119,7 @@
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (when (forall (?h - heroes) (not (at-hero ?from ?h) ))(is-destroyed ?from))                          
+            (is-destroyed ?from)                    
                 )
     )
 
@@ -137,7 +137,7 @@
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (when (forall (?h - heroes) (not (at-hero ?from ?h) ))(is-destroyed ?from))
+            (is-destroyed ?from)
     )
     
     ;Hero picks a sword if he's in the same location
@@ -185,8 +185,8 @@
                 )
     )
 
-    ;Hero destroys his sword. 
-    (:action destroy-sword
+    ;Hero destroys his key. 
+    (:action destroy-key
         :parameters (?loc - cells ?k - keys ?hero - heroes)
         :precondition (and 
             (hold-key ?k ?hero)

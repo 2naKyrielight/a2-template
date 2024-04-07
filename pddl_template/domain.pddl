@@ -118,6 +118,7 @@
         :parameters (?loc - cells ?s - swords)
         :precondition (and 
             (holding ?s)
+            (at-hero ?loc)
             (not (has-trap ?loc))
             (not (has-monster ?loc))      
                       )
