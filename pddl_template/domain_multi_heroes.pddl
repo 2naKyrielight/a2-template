@@ -51,12 +51,10 @@
     ;Resets a turn
     (:action reset-turn
         :parameters (?from ?to - cells)
-        :precondition (
-            (forall (?hero - heroes) (turn-complete ?hero))      
-        )
-        :effect ( 
+        :precondition
+            (forall (?hero - heroes) (turn-complete ?hero))
+        :effect
             (forall (?hero - heroes) (not (turn-complete ?hero)))      
-                )
     )
 
     ;Hero can move if the
