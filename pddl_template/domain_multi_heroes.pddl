@@ -42,9 +42,6 @@
 
         ;Hero's holding a key
         (hold-key ?k - keys ?h - heroes)
-    
-        ;It becomes true when a trap is disarmed
-        (trap-disarmed ?loc)
 
         ;Hero already took their turn
         (turn-complete ?h - heroes)

@@ -14,8 +14,9 @@
         (at-hero cell45 h1)  
         (at-hero cell41 h2)    
     
-    ;He starts with a free arm
-        (arm-free)
+    ;They start with a free arm
+        (arm-free h1)
+        (arm-free h2)
     
     ;Initial location of the swords
         (at-sword sword1 cell23)
