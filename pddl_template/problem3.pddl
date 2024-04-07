@@ -3,137 +3,137 @@
 (define (problem p3-dangeon)
   (:domain Dangeon)
   (:objects
-            cell1.1 cell1.2 cell1.3 cell1.4 cell1.5 cell2.1 cell2.2 cell2.3 cell2.4 cell2.5 cell3.1 cell3.2 cell3.3 cell3.4 cell3.5 cell4.1 cell4.2 cell4.3 cell4.4 cell4.5 - cells
+            cell11 cell12 cell13 cell14 cell15 cell21 cell22 cell23 cell24 cell25 cell31 cell32 cell33 cell34 cell35 cell41 cell42 cell43 cell44 cell45 - cells
             sword1 sword2 sword3 sword4 - swords
   )
   (:init
 
     ;Initial Hero Location
-        (at-hero cell4.5)    
+        (at-hero cell45)    
     
     ;He starts with a free arm
         (arm-free)
     
     ;Initial location of the swords
-        (at-sword sword1 cell1.5)
-        (at-sword sword2 cell2.3)
-        (at-sword sword3 cell3.1)
-        (at-sword sword4 cell4.3)
+        (at-sword sword1 cell15)
+        (at-sword sword2 cell23)
+        (at-sword sword3 cell31)
+        (at-sword sword4 cell43)
     
     ;Initial location of Monsters
-        (has-monster cell1.3)
-        (has-monster cell1.4)
-        (has-monster cell2.2)
-        (has-monster cell3.2)
-        (has-monster cell3.4)
-        (has-monster cell4.2)
-        (has-monster cell4.4)
+        (has-monster cell13)
+        (has-monster cell14)
+        (has-monster cell22)
+        (has-monster cell32)
+        (has-monster cell34)
+        (has-monster cell42)
+        (has-monster cell44)
     
     ;Initial lcocation of Traps
-        (has-trap cell1.2)
-        (has-trap cell2.1)
-        (has-trap cell2.4)
-        (has-trap cell2.5)
-        (has-trap cell3.3)
-        (has-trap cell4.1)
+        (has-trap cell12)
+        (has-trap cell21)
+        (has-trap cell24)
+        (has-trap cell25)
+        (has-trap cell33)
+        (has-trap cell41)
     
     ;Graph Connectivity
-        (connected cell1.1 cell1.2)
-        (connected cell1.2 cell1.1)
+        (connected cell11 cell12)
+        (connected cell12 cell11)
 
-        (connected cell1.2 cell1.3)
-        (connected cell1.3 cell1.2)
+        (connected cell12 cell13)
+        (connected cell13 cell12)
 
-        (connected cell1.3 cell1.4)
-        (connected cell1.4 cell1.3)
+        (connected cell13 cell14)
+        (connected cell14 cell13)
 
-        (connected cell1.4 cell1.5)
-        (connected cell1.5 cell1.4)
+        (connected cell14 cell15)
+        (connected cell15 cell14)
 
-        (connected cell2.1 cell2.2)
-        (connected cell2.2 cell2.1)
+        (connected cell21 cell22)
+        (connected cell22 cell21)
 
-        (connected cell2.2 cell2.3)
-        (connected cell2.3 cell2.2)
+        (connected cell22 cell23)
+        (connected cell23 cell22)
 
-        (connected cell2.3 cell2.4)
-        (connected cell2.4 cell2.3)
+        (connected cell23 cell24)
+        (connected cell24 cell23)
 
-        (connected cell2.4 cell2.5)
-        (connected cell2.5 cell2.4)
+        (connected cell24 cell25)
+        (connected cell25 cell24)
 
-        (connected cell3.1 cell3.2)
-        (connected cell3.2 cell3.1)
+        (connected cell31 cell32)
+        (connected cell32 cell31)
 
-        (connected cell3.2 cell3.3)
-        (connected cell3.3 cell3.2)
+        (connected cell32 cell33)
+        (connected cell33 cell32)
 
-        (connected cell3.3 cell3.4)
-        (connected cell3.4 cell3.3)
+        (connected cell33 cell34)
+        (connected cell34 cell33)
 
-        (connected cell3.4 cell3.5)
-        (connected cell3.5 cell3.4)   
+        (connected cell34 cell35)
+        (connected cell35 cell34)   
 
-        (connected cell4.1 cell4.2)
-        (connected cell4.2 cell4.1)
+        (connected cell41 cell42)
+        (connected cell42 cell41)
 
-        (connected cell4.2 cell4.3)
-        (connected cell4.3 cell4.2)
+        (connected cell42 cell43)
+        (connected cell43 cell42)
 
-        (connected cell4.3 cell4.4)
-        (connected cell4.4 cell4.3)
+        (connected cell43 cell44)
+        (connected cell44 cell43)
 
-        (connected cell4.4 cell4.5)
-        (connected cell4.5 cell4.4)
+        (connected cell44 cell45)
+        (connected cell45 cell44)
         
-        (connected cell1.1 cell2.1)
-        (connected cell2.1 cell1.1)
+        (connected cell11 cell21)
+        (connected cell21 cell11)
 
-        (connected cell2.1 cell3.1)
-        (connected cell3.1 cell2.1)
+        (connected cell21 cell31)
+        (connected cell31 cell21)
 
-        (connected cell3.1 cell4.1)
-        (connected cell4.1 cell3.1)
+        (connected cell31 cell41)
+        (connected cell41 cell31)
 
-        (connected cell1.2 cell2.2)
-        (connected cell2.2 cell1.2)
+        (connected cell12 cell22)
+        (connected cell22 cell12)
 
-        (connected cell2.2 cell3.2)
-        (connected cell3.2 cell2.2)
+        (connected cell22 cell32)
+        (connected cell32 cell22)
 
-        (connected cell3.2 cell4.2)
-        (connected cell4.2 cell3.2)
+        (connected cell32 cell42)
+        (connected cell42 cell32)
 
-        (connected cell1.3 cell2.3)
-        (connected cell2.3 cell1.3)
+        (connected cell13 cell23)
+        (connected cell23 cell13)
 
-        (connected cell2.3 cell3.3)
-        (connected cell3.3 cell2.3)
+        (connected cell23 cell33)
+        (connected cell33 cell23)
 
-        (connected cell3.3 cell4.3)
-        (connected cell4.3 cell3.3)
+        (connected cell33 cell43)
+        (connected cell43 cell33)
 
-        (connected cell1.4 cell2.4)
-        (connected cell2.4 cell1.4)
+        (connected cell14 cell24)
+        (connected cell24 cell14)
 
-        (connected cell2.4 cell3.4)
-        (connected cell3.4 cell2.4)
+        (connected cell24 cell34)
+        (connected cell34 cell24)
 
-        (connected cell3.4 cell4.4)
-        (connected cell4.4 cell3.4)
+        (connected cell34 cell44)
+        (connected cell44 cell34)
 
-        (connected cell1.5 cell2.5)
-        (connected cell2.5 cell1.5)
+        (connected cell15 cell25)
+        (connected cell25 cell15)
 
-        (connected cell2.5 cell3.5)
-        (connected cell3.5 cell2.5)
+        (connected cell25 cell35)
+        (connected cell35 cell25)
 
-        (connected cell3.5 cell4.5)
-        (connected cell4.5 cell3.5)
+        (connected cell35 cell45)
+        (connected cell45 cell35)
     
   )
   (:goal (and
-        (at-hero cell1.1)
+        (at-hero cell11)
             ;Hero's Goal Location
             
         )
