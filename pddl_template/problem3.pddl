@@ -4,7 +4,7 @@
   (:domain Dangeon)
   (:objects
             cell11 cell12 cell13 cell14 cell15 cell21 cell22 cell23 cell24 cell25 cell31 cell32 cell33 cell34 cell35 cell41 cell42 cell43 cell44 cell45 - cells
-            sword1 sword2 - swords
+            sword1 sword2 sword3 sword4 - swords
   )
   (:init
 
@@ -136,6 +136,7 @@
         (at-hero cell11)
             ;Hero's Goal Location
             
-  ))
+        )
+  )
   
 )
