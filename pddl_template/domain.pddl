@@ -50,12 +50,9 @@
         :precondition (and 
             (at-hero ?from)
             (connected ?from ?to)
-            (not (has-trap ?to))
+            (not (has-trap ?from))
             (not (is-destroyed ?to))
-            (or 
-                (and (has-trap ?from) (trap-disarmed ?from))
-                (not (has-trap ?from))
-            )
+            (not (has-trap ?to))
             (not (has-monster ?to))
         )
         :effect (and 
@@ -72,10 +69,7 @@
             (at-hero ?from)
             (connected ?from ?to)
             (arm-free)
-            (or 
-                (and (has-trap ?from) (trap-disarmed ?from))
-                (not (has-trap ?from))
-            )
+            (not (has-trap ?from))
             (not (is-destroyed ?to))
             (has-trap ?to)       
         )
@@ -93,10 +87,7 @@
             (at-hero ?from)
             (connected ?from ?to)
             (holding ?s)
-            (or 
-                (and (has-trap ?from) (trap-disarmed ?from))
-                (not (has-trap ?from))
-            )
+            (not (has-trap ?from))
             (not (is-destroyed ?to))
             (has-monster ?to)
         )
@@ -143,11 +134,11 @@
         :precondition (and 
             (arm-free)
             (at-hero ?loc)
-            (has-trap ?loc)
-            (not (trap-disarmed ?loc))
+            (has-trap ?loc) 
                       )
         :effect (and
             (trap-disarmed ?loc)
+            (not (has-trap ?loc))     
                 )
     )
     
