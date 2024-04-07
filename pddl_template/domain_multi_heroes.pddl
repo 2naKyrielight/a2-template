@@ -79,7 +79,7 @@
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (is-destroyed ?from)
+            (when (forall (?h - heroes) (not (at-hero ?from ?h))) (is-destroyed ?from))
             (turn-complete ?hero)
                 )
     )
@@ -99,7 +99,7 @@
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (is-destroyed ?from)
+            (when (forall (?h - heroes) (not (at-hero ?from ?h))) (is-destroyed ?from))
             (turn-complete ?hero)
                 )
     )
@@ -119,7 +119,8 @@
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (is-destroyed ?from)                    
+            (when (forall (?h - heroes) (not (at-hero ?from ?h))) (is-destroyed ?from))  
+            (turn-complete ?hero)              
                 )
     )
 
@@ -138,7 +139,7 @@
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (is-destroyed ?from)
+            (when (forall (?h - heroes) (not (at-hero ?from ?h))) (is-destroyed ?from))
             (turn-complete ?hero)
       )
     )
