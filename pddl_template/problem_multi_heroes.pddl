@@ -1,5 +1,5 @@
-(define (problem p3-dangeon)
-  (:domain Dangeon)
+(define (problem multi-dangeon)
+  (:domain MultiDangeon)
   (:objects
             cell11 cell12 cell13 cell14 cell15 cell21 cell22 cell23 cell24 cell25 cell31 cell32 cell33 cell34 cell35 cell41 cell42 cell43 cell44 cell45 - cells
             sword1 sword2 - swords

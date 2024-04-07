@@ -1,4 +1,4 @@
-(define (domain Dangeon)
+(define (domain MultiDangeon)
 
     (:requirements
         :typing
