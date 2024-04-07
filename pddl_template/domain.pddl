@@ -52,7 +52,10 @@
             (connected ?from ?to)
             (not (has-trap ?from))
             (not (is-destroyed ?to))
-            (not (has-trap ?to))
+            (or 
+                (and ((has-trap ?from)) (trap-disarmed ?from))
+                (not (has-trap ?from))
+            )
             (not (has-monster ?to))
         )
         :effect (and 
@@ -69,7 +72,10 @@
             (at-hero ?from)
             (connected ?from ?to)
             (arm-free)
-            (not (has-trap ?from))
+            (or 
+                (and ((has-trap ?from)) (trap-disarmed ?from))
+                (not (has-trap ?from))
+            )
             (not (is-destroyed ?to))
             (has-trap ?to)       
         )
@@ -87,7 +93,10 @@
             (at-hero ?from)
             (connected ?from ?to)
             (holding ?s)
-            (not (has-trap ?from))
+            (or 
+                (and ((has-trap ?from)) (trap-disarmed ?from))
+                (not (has-trap ?from))
+            )
             (not (is-destroyed ?to))
             (has-monster ?to)
         )
@@ -137,7 +146,7 @@
             (has-trap ?loc) 
                       )
         :effect (and
-            (not (has-trap ?loc))     
+            (trap-disarmed ?loc)
                 )
     )
     
