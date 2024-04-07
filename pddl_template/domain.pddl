@@ -53,7 +53,7 @@
             (not (has-trap ?to))
             (not (is-destroyed ?to))
             (or 
-                (and ((has-trap ?from)) (trap-disarmed ?from))
+                (and (has-trap ?from) (trap-disarmed ?from))
                 (not (has-trap ?from))
             )
             (not (has-monster ?to))
@@ -73,7 +73,7 @@
             (connected ?from ?to)
             (arm-free)
             (or 
-                (and ((has-trap ?from)) (trap-disarmed ?from))
+                (and (has-trap ?from) (trap-disarmed ?from))
                 (not (has-trap ?from))
             )
             (not (is-destroyed ?to))
@@ -94,7 +94,7 @@
             (connected ?from ?to)
             (holding ?s)
             (or 
-                (and ((has-trap ?from)) (trap-disarmed ?from))
+                (and (has-trap ?from) (trap-disarmed ?from))
                 (not (has-trap ?from))
             )
             (not (is-destroyed ?to))
