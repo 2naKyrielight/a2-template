@@ -50,7 +50,7 @@
         :precondition (and 
             (at-hero ?from)
             (connected ?from ?to)
-            (not (has-trap ?from))
+            (not (has-trap ?to))
             (not (is-destroyed ?to))
             (or 
                 (and ((has-trap ?from)) (trap-disarmed ?from))
