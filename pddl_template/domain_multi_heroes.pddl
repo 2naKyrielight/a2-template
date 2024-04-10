@@ -90,7 +90,6 @@
         :precondition (and 
             (at-hero ?from ?hero)
             (connected ?from ?to)
-            (arm-free ?hero)
             (not (has-trap ?from))
             (not (is-destroyed ?to))
             (has-trap ?to)
@@ -184,6 +183,7 @@
         :precondition (and 
             (hold-sword ?s ?hero)
             (at-hero ?loc ?hero)
+            (not (has-trap ?loc))
             (not (has-monster ?loc))      
             (not (turn-complete ?hero))
                       )
@@ -200,6 +200,7 @@
         :precondition (and 
             (hold-key ?k ?hero)
             (at-hero ?loc ?hero)
+            (not (has-trap ?loc))
             (not (has-monster ?loc))    
             (not (turn-complete ?hero))  
                       )
