@@ -66,7 +66,8 @@
             (connected ?from ?to)
             (not (has-trap ?from))
             (not (is-destroyed ?to))
-            (has-trap ?to)       
+            (has-trap ?to)
+            (arm-free)
         )
         :effect (and 
             (not (at-hero ?from))
