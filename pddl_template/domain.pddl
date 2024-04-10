@@ -128,7 +128,6 @@
     (:action disarm-trap
         :parameters (?loc - cells)
         :precondition (and 
-            (arm-free)
             (at-hero ?loc)
             (has-trap ?loc) 
                       )

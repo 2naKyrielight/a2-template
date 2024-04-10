@@ -63,7 +63,7 @@
     ;    - there is no trap in current loc, and 
     ;    - destination does not have a trap/monster/has-been-destroyed/locked
     ;    - hero's turn has not been taken
-    ;Effects move the hero, and destroy the original cell. No need to destroy the sword.
+    ;Effects move the hero, and destroy the original cell if no hero is inside.
     (:action move
         :parameters (?from ?to - cells ?hero - heroes)
         :precondition (and 
