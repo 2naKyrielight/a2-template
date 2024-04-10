@@ -64,7 +64,6 @@
         :precondition (and 
             (at-hero ?from)
             (connected ?from ?to)
-            (arm-free)
             (not (has-trap ?from))
             (not (is-destroyed ?to))
             (has-trap ?to)       
@@ -115,6 +114,7 @@
         :precondition (and 
             (holding ?s)
             (at-hero ?loc)
+            (not (has-tral ?loc))
             (not (has-monster ?loc))      
                       )
         :effect (and
@@ -128,6 +128,7 @@
     (:action disarm-trap
         :parameters (?loc - cells)
         :precondition (and 
+            (arm-free)
             (at-hero ?loc)
             (has-trap ?loc) 
                       )
