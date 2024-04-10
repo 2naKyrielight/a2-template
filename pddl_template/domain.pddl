@@ -83,7 +83,6 @@
             (at-hero ?from)
             (connected ?from ?to)
             (holding ?s)
-            (not (has-trap ?from))
             (not (is-destroyed ?to))
             (has-monster ?to)
         )
@@ -127,6 +126,7 @@
     (:action disarm-trap
         :parameters (?loc - cells)
         :precondition (and 
+            (arm-free)
             (at-hero ?loc)
             (has-trap ?loc) 
                       )
