@@ -215,6 +215,7 @@
     (:action disarm-trap
         :parameters (?loc - cells ?hero -heroes)
         :precondition (and 
+            (arm-free ?hero)
             (at-hero ?loc ?hero)
             (has-trap ?loc)
             (not (turn-complete ?hero))

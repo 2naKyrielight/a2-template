@@ -120,6 +120,7 @@
         :effect (and
             (not (holding ?s))
             (arm-free)
+            (is-destroyed ?s)
                 )
     )
     
