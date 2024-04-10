@@ -33,10 +33,6 @@
         
         ;Hero's holding a sword
         (holding ?s - swords)
-    
-        ;It becomes true when a trap is disarmed
-        (trap-disarmed ?loc)
-        
     )
 
     ;Hero can move if the
@@ -137,7 +133,6 @@
             (has-trap ?loc) 
                       )
         :effect (and
-            (trap-disarmed ?loc)
             (not (has-trap ?loc))     
                 )
     )
