@@ -114,7 +114,7 @@
         :precondition (and 
             (holding ?s)
             (at-hero ?loc)
-            (not (has-tral ?loc))
+            (not (has-trap ?loc))
             (not (has-monster ?loc))      
                       )
         :effect (and
