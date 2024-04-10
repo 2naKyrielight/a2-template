@@ -50,7 +50,7 @@
 
     ;Resets a turn
     (:action reset-turn
-        :parameters (?from ?to - cells)
+        :parameters ()
         :precondition
             (forall (?hero - heroes) (turn-complete ?hero))
         :effect
@@ -213,7 +213,7 @@
     
     ;Hero disarms the trap with his free arm
     (:action disarm-trap
-        :parameters (?loc - cells ?hero -heroes)
+        :parameters (?loc - cells ?hero - heroes)
         :precondition (and 
             (arm-free ?hero)
             (at-hero ?loc ?hero)
@@ -234,13 +234,13 @@
             (at-loc ?loc ?h2)
             (arm-free ?h2)
             (hold-sword ?s ?h1)
-            (not (turn-complete ?hero))
+            (not (turn-complete ?h1))
                       )
         :effect (and
             (hold-sword ?s ?h2)
             (not (arm-free ?h2))
             (arm-free ?h1)
-            (turn-complete ?hero)
+            (turn-complete ?h1)
                 )
     )
 
@@ -252,13 +252,13 @@
             (at-loc ?loc ?h2)
             (arm-free ?h2)
             (hold-key ?k ?h1)
-            (not (turn-complete ?hero))
+            (not (turn-complete ?h1))
                       )
         :effect (and
             (hold-key ?k ?h2)
             (not (arm-free ?h2))
             (arm-free ?h1)
-            (turn-complete ?hero)
+            (turn-complete ?h1)
                 )
     )
     (:action do-Nothing
