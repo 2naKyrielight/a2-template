@@ -184,7 +184,6 @@
         :precondition (and 
             (hold-sword ?s ?hero)
             (at-hero ?loc ?hero)
-            (not (has-trap ?loc))
             (not (has-monster ?loc))      
             (not (turn-complete ?hero))
                       )
@@ -201,7 +200,6 @@
         :precondition (and 
             (hold-key ?k ?hero)
             (at-hero ?loc ?hero)
-            (not (has-trap ?loc))
             (not (has-monster ?loc))    
             (not (turn-complete ?hero))  
                       )
@@ -216,7 +214,6 @@
     (:action disarm-trap
         :parameters (?loc - cells ?hero -heroes)
         :precondition (and 
-            (arm-free ?hero)
             (at-hero ?loc ?hero)
             (has-trap ?loc)
             (not (turn-complete ?hero))
