@@ -277,7 +277,6 @@
             (hold-key ?k ?hero)
             (at-hero ?loc ?hero)
             (not (has-trap ?loc))
-            (not (has-monster ?loc))    
             (not (turn-complete ?hero))  
                       )
         :effect (and
@@ -304,12 +303,13 @@
 
     ;Hero gives sword to friend
     (:action give-sword
-        :parameters (?loc - cells ?h1 ?h2 - heroes ?s - sword)
+        :parameters (?loc - cells ?h1 ?h2 - heroes ?s - swords)
         :precondition (and
-            (at-loc ?loc ?h1)
-            (at-loc ?loc ?h2)
+            (at-hero ?loc ?h1)
+            (at-hero ?loc ?h2)
             (arm-free ?h2)
             (hold-sword ?s ?h1)
+            (not (has-trap ?loc))
             (not (turn-complete ?h1))
                       )
         :effect (and
@@ -322,13 +322,14 @@
 
     ;Hero gives key to friend
     (:action give-key
-        :parameters (?loc - cells ?h1 ?h2 - heroes ?k - key)
+        :parameters (?loc - cells ?h1 ?h2 - heroes ?k - keys)
         :precondition (and
-            (at-loc ?loc ?h1)
-            (at-loc ?loc ?h2)
+            (at-hero ?loc ?h1)
+            (at-hero ?loc ?h2)
             (arm-free ?h2)
             (hold-key ?k ?h1)
             (not (turn-complete ?h1))
+            (not (has-trap ?loc))
                       )
         :effect (and
             (hold-key ?k ?h2)
@@ -337,7 +338,8 @@
             (turn-complete ?h1)
                 )
     )
-    (:action do-Nothing
+    
+    (:action do-nothing
         :parameters (?hero - heroes)
         :precondition (and
             (not (turn-complete ?hero))

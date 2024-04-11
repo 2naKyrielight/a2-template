@@ -1,146 +1,352 @@
-(define (problem multi-dangeon)
-  (:domain MultiDangeon)
-  (:objects
-            cell11 cell12 cell13 cell14 cell15 cell21 cell22 cell23 cell24 cell25 cell31 cell32 cell33 cell34 cell35 cell41 cell42 cell43 cell44 cell45 - cells
-            sword1 sword2 - swords
-            key1 key2 - keys
-            h1 h2 - heroes
-  )
-  (:init
+(define (domain MultiDangeon)
 
-    ;Initial Hero Location
-        (at-hero cell45 h1)  
-        (at-hero cell41 h2)    
-    
-    ;They start with a free arm
-        (arm-free h1)
-        (arm-free h2)
-    
-    ;Initial location of the swords
-        (at-sword sword1 cell23)
-        (at-sword sword2 cell34)
+    (:requirements
+        :typing
+        :negative-preconditions
+    )
 
-    ;Initial location of the keys
-        (at-key key1 cell21)
-        (at-key key2 cell44)
-       
-    ;Initial location of Monsters
-        (has-monster cell13)
-        (has-monster cell22)
-        (has-monster cell24)
-    
-    ;Initial location of Traps
-        (has-trap cell14)
-        (has-trap cell32)
-        (has-trap cell43)
+    (:types
+        swords cells heroes keys
+    )
 
-    ;Initial locked rooms
-        (is-locked cell12)
-        (is-locked cell25)
-        (is-locked cell31)
-        (is-locked cell33)
-        (is-locked cell35)
-
-    ;Graph Connectivity
-        (connected cell11 cell12)
-        (connected cell12 cell11)
-
-        (connected cell12 cell13)
-        (connected cell13 cell12)
-
-        (connected cell13 cell14)
-        (connected cell14 cell13)
-
-        (connected cell14 cell15)
-        (connected cell15 cell14)
-
-        (connected cell21 cell22)
-        (connected cell22 cell21)
-
-        (connected cell22 cell23)
-        (connected cell23 cell22)
-
-        (connected cell23 cell24)
-        (connected cell24 cell23)
-
-        (connected cell24 cell25)
-        (connected cell25 cell24)
-
-        (connected cell31 cell32)
-        (connected cell32 cell31)
-
-        (connected cell32 cell33)
-        (connected cell33 cell32)
-
-        (connected cell33 cell34)
-        (connected cell34 cell33)
-
-        (connected cell34 cell35)
-        (connected cell35 cell34)   
-
-        (connected cell41 cell42)
-        (connected cell42 cell41)
-
-        (connected cell42 cell43)
-        (connected cell43 cell42)
-
-        (connected cell43 cell44)
-        (connected cell44 cell43)
-
-        (connected cell44 cell45)
-        (connected cell45 cell44)
+    (:predicates
+        ;Hero's cell location
+        (at-hero ?loc - cells ?h - heroes)
         
-        (connected cell11 cell21)
-        (connected cell21 cell11)
+        ;Sword cell location
+        (at-sword ?s - swords ?loc - cells)
 
-        (connected cell21 cell31)
-        (connected cell31 cell21)
+        ;Key cell location
+        (at-key ?k - keys ?loc - cells)
+        
+        ;Indicates if a cell location has a monster
+        (has-monster ?loc - cells)
+        
+        ;Indicates if a cell location has a trap
+        (has-trap ?loc - cells)
+        
+        ;Indicates if a cell, key or sword has been destroyed
+        (is-destroyed ?obj)
 
-        (connected cell31 cell41)
-        (connected cell41 cell31)
+        ;Indicates if a cell is locked
+        (is-locked ?loc - cells)
+        
+        ;connects cells
+        (connected ?from ?to - cells)
+        
+        ;Hero's hand is free
+        (arm-free ?h - heroes)
+        
+        ;Hero's holding a sword
+        (hold-sword ?s - swords ?h - heroes)
 
-        (connected cell12 cell22)
-        (connected cell22 cell12)
+        ;Hero's holding a key
+        (hold-key ?k - keys ?h - heroes)
 
-        (connected cell22 cell32)
-        (connected cell32 cell22)
+        ;Hero already took their turn
+        (turn-complete ?h - heroes)
+        
+    )
 
-        (connected cell32 cell42)
-        (connected cell42 cell32)
+    ;Resets a turn
+    (:action reset-turn
+        :parameters ()
+        :precondition
+            (forall (?hero - heroes) (turn-complete ?hero))
+        :effect
+            (forall (?hero - heroes) (not (turn-complete ?hero)))      
+    )
 
-        (connected cell13 cell23)
-        (connected cell23 cell13)
-
-        (connected cell23 cell33)
-        (connected cell33 cell23)
-
-        (connected cell33 cell43)
-        (connected cell43 cell33)
-
-        (connected cell14 cell24)
-        (connected cell24 cell14)
-
-        (connected cell24 cell34)
-        (connected cell34 cell24)
-
-        (connected cell34 cell44)
-        (connected cell44 cell34)
-
-        (connected cell15 cell25)
-        (connected cell25 cell15)
-
-        (connected cell25 cell35)
-        (connected cell35 cell25)
-
-        (connected cell35 cell45)
-        (connected cell45 cell35)
+    ;Hero can move if the
+    ;    - hero is at current location
+    ;    - cells are connected, 
+    ;    - there is no trap in current loc, and 
+    ;    - destination does not have a trap/monster/has-been-destroyed/locked
+    ;    - hero's turn has not been taken
+    ;Effects move the hero, and destroy the original cell if no hero is inside.
+    (:action move
+        :parameters (?from ?to - cells ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (not (has-trap ?to))
+            (not (has-monster ?to))
+            (not (is-locked ?to))
+            (not (turn-complete ?hero))
+            (not (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                )))
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (turn-complete ?hero)
+                )
+    )
     
-  )
-  (:goal (and
-        (at-hero cell11 h1)
-        (at-hero cell15 h2)
-            ;Hero's Goal Location
+        (:action move-alone
+        :parameters (?from ?to - cells ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (not (has-trap ?to))
+            (not (has-monster ?to))
+            (not (is-locked ?to))
+            (not (turn-complete ?hero))
+            (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                ))
             
-  ))
-  
-)
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (is-destroyed ?from)
+            (turn-complete ?hero)
+                )
+    )
+    
+    ;When this action is executed, the hero gets into a location with a trap
+    (:action move-to-trap-alone
+        :parameters (?from ?to - cells ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (has-trap ?to)
+            (not (turn-complete ?hero))
+            (not (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                )))
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (when (forall (?h - heroes) (not (at-hero ?from ?h))) (is-destroyed ?from))
+            (turn-complete ?hero)
+                )
+    )
+    
+    (:action move-to-trap
+        :parameters (?from ?to - cells ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (has-trap ?to)
+            (not (turn-complete ?hero))
+            (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                ))
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (is-destroyed ?from)
+            (turn-complete ?hero)
+                )
+    )
+
+    ;When this action is executed, the hero gets into a location with a monster
+    (:action move-to-monster-alone
+        :parameters (?from ?to - cells ?s - swords ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (hold-sword ?s ?hero)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (has-monster ?to)
+            (not (turn-complete ?hero))
+            (not (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                )))
+            
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (turn-complete ?hero)              
+                )
+    )
+
+    (:action move-to-monster
+        :parameters (?from ?to - cells ?s - swords ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (hold-sword ?s ?hero)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (has-monster ?to)
+            (not (turn-complete ?hero))
+            (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                ))
+            
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (is-destroyed ?from)
+            (turn-complete ?hero)              
+                )
+    )
+    
+    ;When this action is executed, the hero gets into a location with a lock
+    (:action move-to-lock
+        :parameters (?from ?to - cells ?k - keys ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (hold-key ?k ?hero)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (is-locked ?to)
+            (not (turn-complete ?hero))
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (when (forall (?h - heroes) (not (at-hero ?from ?h))) (is-destroyed ?from))
+            (turn-complete ?hero)
+      )
+    )
+    
+    ;Hero picks a sword if he's in the same location
+    (:action pick-sword
+        :parameters (?loc - cells ?s - swords ?hero - heroes)
+        :precondition (and 
+            (at-hero ?loc ?hero)
+            (at-sword ?s ?loc)
+            (arm-free ?hero)
+            (not (turn-complete ?hero))
+                      )
+        :effect (and
+            (not (at-sword ?s ?loc))
+            (not (arm-free ?hero))
+            (hold-sword ?s ?hero)
+            (turn-complete ?hero)
+                )
+    )
+
+    ;Hero picks a key if he's in the same location
+    (:action pick-key
+        :parameters (?loc - cells ?k - keys ?hero - heroes)
+        :precondition (and 
+            (at-hero ?loc ?hero)
+            (at-key ?k ?loc)
+            (arm-free ?hero)
+            (not (turn-complete ?hero))
+                      )
+        :effect (and
+            (not (at-key ?k ?loc))
+            (not (arm-free ?hero))
+            (hold-key ?k ?hero)
+            (turn-complete ?hero)
+                )
+    )
+    
+    ;Hero destroys his sword. 
+    (:action destroy-sword
+        :parameters (?loc - cells ?s - swords ?hero - heroes)
+        :precondition (and 
+            (hold-sword ?s ?hero)
+            (at-hero ?loc ?hero)
+            (not (has-trap ?loc))
+            (not (has-monster ?loc))      
+            (not (turn-complete ?hero))
+                      )
+        :effect (and
+            (not (hold-sword ?s ?hero))
+            (arm-free ?hero)
+            (turn-complete ?hero)
+                )
+    )
+
+    ;Hero destroys his key. 
+    (:action destroy-key
+        :parameters (?loc - cells ?k - keys ?hero - heroes)
+        :precondition (and 
+            (hold-key ?k ?hero)
+            (at-hero ?loc ?hero)
+            (not (has-trap ?loc))
+            (not (turn-complete ?hero))  
+                      )
+        :effect (and
+            (not (hold-key ?k ?hero))
+            (arm-free ?hero)
+            (turn-complete ?hero)
+                )
+    )
+    
+    ;Hero disarms the trap with his free arm
+    (:action disarm-trap
+        :parameters (?loc - cells ?hero - heroes)
+        :precondition (and 
+            (arm-free ?hero)
+            (at-hero ?loc ?hero)
+            (has-trap ?loc)
+            (not (turn-complete ?hero))
+                      )
+        :effect (and
+            (not (has-trap ?loc))     
+            (turn-complete ?hero)
+                )
+    )
+
+    ;Hero gives sword to friend
+    (:action give-sword
+        :parameters (?loc - cells ?h1 ?h2 - heroes ?s - swords)
+        :precondition (and
+            (at-hero ?loc ?h1)
+            (at-hero ?loc ?h2)
+            (arm-free ?h2)
+            (hold-sword ?s ?h1)
+            (not (has-trap ?loc))
+            (not (turn-complete ?h1))
+                      )
+        :effect (and
+            (hold-sword ?s ?h2)
+            (not (arm-free ?h2))
+            (arm-free ?h1)
+            (turn-complete ?h1)
+                )
+    )
+
+    ;Hero gives key to friend
+    (:action give-key
+        :parameters (?loc - cells ?h1 ?h2 - heroes ?k - keys)
+        :precondition (and
+            (at-hero ?loc ?h1)
+            (at-hero ?loc ?h2)
+            (arm-free ?h2)
+            (hold-key ?k ?h1)
+            (not (turn-complete ?h1))
+            (not (has-trap ?loc))
+                      )
+        :effect (and
+            (hold-key ?k ?h2)
+            (not (arm-free ?h2))
+            (arm-free ?h1)
+            (turn-complete ?h1)
+                )
+    )
+    
+    (:action do-nothing
+        :parameters (?hero - heroes)
+        :precondition (and
+            (not (turn-complete ?hero))
+                      )
+        :effect (and
+            (turn-complete ?hero)
+                )
+    )
+    
+    )
