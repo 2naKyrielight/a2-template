@@ -75,6 +75,54 @@
             (not (has-monster ?to))
             (not (is-locked ?to))
             (not (turn-complete ?hero))
+            (not (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                )))
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (turn-complete ?hero)
+                )
+    )
+    
+        (:action move-alone
+        :parameters (?from ?to - cells ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (not (has-trap ?to))
+            (not (has-monster ?to))
+            (not (is-locked ?to))
+            (not (turn-complete ?hero))
+            (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                ))
+            
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (is-destroyed ?from)
+            (turn-complete ?hero)
+                )
+    )
+    
+    ;When this action is executed, the hero gets into a location with a trap
+    (:action move-to-trap-alone
+        :parameters (?from ?to - cells ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (has-trap ?to)
+            (not (turn-complete ?hero))
+            (not (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                )))
         )
         :effect (and 
             (not (at-hero ?from ?hero))
@@ -84,7 +132,6 @@
                 )
     )
     
-    ;When this action is executed, the hero gets into a location with a trap
     (:action move-to-trap
         :parameters (?from ?to - cells ?hero - heroes)
         :precondition (and 
@@ -93,17 +140,42 @@
             (not (has-trap ?from))
             (not (is-destroyed ?to))
             (has-trap ?to)
-            (not (turn-complete ?hero))       
+            (not (turn-complete ?hero))
+            (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                ))
         )
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (when (forall (?h - heroes) (not (at-hero ?from ?h))) (is-destroyed ?from))
+            (is-destroyed ?from)
             (turn-complete ?hero)
                 )
     )
 
     ;When this action is executed, the hero gets into a location with a monster
+    (:action move-to-monster-alone
+        :parameters (?from ?to - cells ?s - swords ?hero - heroes)
+        :precondition (and 
+            (at-hero ?from ?hero)
+            (connected ?from ?to)
+            (hold-sword ?s ?hero)
+            (not (has-trap ?from))
+            (not (is-destroyed ?to))
+            (has-monster ?to)
+            (not (turn-complete ?hero))
+            (not (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                )))
+            
+        )
+        :effect (and 
+            (not (at-hero ?from ?hero))
+            (at-hero ?to ?hero)
+            (turn-complete ?hero)              
+                )
+    )
+
     (:action move-to-monster
         :parameters (?from ?to - cells ?s - swords ?hero - heroes)
         :precondition (and 
@@ -114,15 +186,19 @@
             (not (is-destroyed ?to))
             (has-monster ?to)
             (not (turn-complete ?hero))
+            (exists (?h - heroes) (and (not (= ?h ?hero))
+                    (not (at-hero ?from ?h))
+                ))
+            
         )
         :effect (and 
             (not (at-hero ?from ?hero))
             (at-hero ?to ?hero)
-            (when (forall (?h - heroes) (not (at-hero ?from ?h))) (is-destroyed ?from))  
+            (is-destroyed ?from)
             (turn-complete ?hero)              
                 )
     )
-
+    
     ;When this action is executed, the hero gets into a location with a lock
     (:action move-to-lock
         :parameters (?from ?to - cells ?k - keys ?hero - heroes)

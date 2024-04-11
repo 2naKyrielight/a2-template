@@ -30,12 +30,13 @@
         (has-monster cell24)
     
     ;Initial location of Traps
-        (has-trap cell23)
+        (has-trap cell14)
         (has-trap cell32)
         (has-trap cell43)
 
     ;Initial locked rooms
         (is-locked cell12)
+        (is-locked cell25)
         (is-locked cell31)
         (is-locked cell33)
         (is-locked cell35)
